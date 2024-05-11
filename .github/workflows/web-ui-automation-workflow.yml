@@ -16,7 +16,7 @@ on:
 jobs:
   run-automation-test:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
@@ -26,7 +26,7 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
     - name: Setup Chrome
-      uses: browser-actions/setup-chrome@v1.2.0
+      uses: browser-actions/setup-chrome@v0.0.0
 
     - name: setup gradle
       run: chmod +x gradlew
@@ -35,15 +35,15 @@ jobs:
       run: ./gradlew cucumber_web
       
     - name: Archive Test Result
-      uses: actions/upload-artifact@v3.1.0
+      uses: actions/upload-artifact@v4
       if: always()
       with:
         name: Cucumber Report
         path: reports/web
         
-    - name: Deploy report to github pages
-      if: always()
-      uses: peaceiris/actions-gh-pages@v3.9.3
-      with:
-        personal_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: reports/web
+    # name: Deploy report to github pages
+    # if: always()
+    # uses: peaceiris/actions-gh-pages@v3.9.3
+    # with:
+    #    personal_token: ${{ secrets.GITHUB_TOKEN }}
+    #    publish_dir: reports/web
