@@ -1,0 +1,84 @@
+plugins {
+    id 'java'
+    id("io.qameta.allure") version "2.11.0"
+    id 'application'
+}
+
+group 'Ryan.Example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    testImplementation 'io.github.bonigarcia:webdrivermanager:5.3.2'
+    testImplementation 'org.seleniumhq.selenium:selenium-java:4.9.1'
+    testImplementation group: 'io.cucumber', name: 'cucumber-java', version: '7.11.1'
+    testImplementation group: 'io.cucumber', name: 'cucumber-junit', version: '7.11.1'
+    testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '5.3.0'
+    implementation group: 'org.json', name: 'json', version: '20230227'
+    testImplementation group: 'io.rest-assured', name: 'json-schema-validator', version: '5.3.0'
+    testImplementation group: 'org.testng', name: 'testng', version: '7.7.1'
+}
+
+
+test {
+    useTestNG()
+}
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
+}
+
+def tags = (findProperty('tags') == null) ? 'not @exclude' : findProperty('tags') + ' and not @exclude'
+
+task cucumber_web() {
+    description("Running Cucumber Test web")
+    dependsOn assemble, compileTestJava
+    doLast {
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = [
+                    '--plugin', 'html:reports/web/index.html',
+                    '--plugin', 'json:reports/web/index.json',
+                    '--plugin', 'pretty',
+                    '--glue', 'com.ryan.webUITest',
+                    '--tags', "${tags}",
+                    'src/test/resources/web'
+
+
+
+            ]
+        }
+    }
+
+}
+
+task cucumber_api() {
+    description("Running Cucumber Test api")
+    dependsOn assemble, compileTestJava
+    doLast {
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = [
+                    '--plugin', 'html:reports/api/index.html',
+                    '--plugin', 'json:reports/api/index.json',
+                    '--plugin', 'pretty',
+                    '--glue', 'com.prasetio.apiTest',
+                    '--tags', "${tags}",
+                    'src/test/resources/API'
+
+
+
+            ]
+        }
+    }
+
+}
