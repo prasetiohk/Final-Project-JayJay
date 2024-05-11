@@ -29,7 +29,7 @@ jobs:
       run: chmod +x gradlew
 
     - name: Execute Test
-      run: cucumber apiTest || true
+      run: .cucumber apiTest || true
       
     - name: Archive Test Result
       uses: actions/upload-artifact@v4
