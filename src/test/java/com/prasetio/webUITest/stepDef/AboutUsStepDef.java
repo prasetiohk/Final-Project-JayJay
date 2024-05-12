@@ -1,4 +1,4 @@
-package com.ryan.webUITest.stepDef;
+package com.prasetio.webUITest.stepDef;
 
 import Test.baseTest;
 import com.prasetio.webUITest.page.aboutUsPage;
