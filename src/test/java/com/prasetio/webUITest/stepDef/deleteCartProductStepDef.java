@@ -1,10 +1,10 @@
 package com.prasetio.webUITest.stepDef;
 
 import Test.baseTest;
-import com.ryan.webUITest.page.cartPage;
-import com.ryan.webUITest.page.firstPage;
-import com.ryan.webUITest.page.homePage;
-import com.ryan.webUITest.page.loginPage;
+import com.prasetio.webUITest.page.cartPage;
+import com.prasetio.webUITest.page.firstPage;
+import com.prasetio.webUITest.page.homePage;
+import com.prasetio.webUITest.page.loginPage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.openqa.selenium.support.ui.ExpectedConditions;
