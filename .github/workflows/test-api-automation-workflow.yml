@@ -29,7 +29,7 @@ jobs:
       run: chmod +x gradlew
 
     - name: Execute Test
-      run: ./gradlew apiTest || true
+      run: ./cucumber apiTest || true
       
     - name: Archive Test Result
       uses: actions/upload-artifact@v4
@@ -43,4 +43,4 @@ jobs:
      uses: peaceiris/actions-gh-pages@v4
      with:
      personal_token: ${{ secrets.GITHUB_TOKEN }}
-     publish_dir: reports
+     publish_dir: reports/api
