@@ -1,16 +1,12 @@
 package com.prasetio.apiTest.stepDef;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.hamcrest.Matchers;
 import org.json.JSONObject;
 import org.junit.Assert;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.Test;
 
 import java.util.HashMap;
@@ -19,7 +15,6 @@ import java.util.Random;
 
 public class userDataStepDef {
     public static String userId;
-    protected static WebDriver driver;
 
     protected RequestSpecification getDriver() {
             RestAssured.baseURI = "https://dummyapi.io/data/v1";
