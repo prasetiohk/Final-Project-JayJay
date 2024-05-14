@@ -37,9 +37,8 @@ configurations {
 
 def tags = (findProperty('tags') == null) ? 'not @exclude' : findProperty('tags') + ' and not @exclude'
 
-task cucumber_web() {
-    description("Running Cucumber Test web")
-    dependsOn assemble, compileTestJava
+tasks.register('webTest') {
+    dependsOn assemble, testClasses
     doLast {
         javaexec {
             main = "io.cucumber.core.cli.Main"
@@ -48,21 +47,15 @@ task cucumber_web() {
                     '--plugin', 'html:reports/web/index.html',
                     '--plugin', 'json:reports/web/index.json',
                     '--plugin', 'pretty',
-                    '--glue', 'com.ryan.webUITest',
-                    '--tags', "${tags}",
+                    '--glue', 'com.prasetio.webUITest',
                     'src/test/resources/web'
-
-
-
             ]
         }
     }
-
 }
 
-task cucumber_api() {
-    description("Running Cucumber Test api")
-    dependsOn assemble, compileTestJava
+tasks.register('apiTest') {
+    dependsOn assemble, testClasses
     doLast {
         javaexec {
             main = "io.cucumber.core.cli.Main"
@@ -72,13 +65,54 @@ task cucumber_api() {
                     '--plugin', 'json:reports/api/index.json',
                     '--plugin', 'pretty',
                     '--glue', 'com.prasetio.apiTest',
-                    '--tags', "${tags}",
                     'src/test/resources/API'
-
-
-
             ]
         }
     }
-
 }
+//
+//task cucumber_web() {
+//    description("Running Cucumber Test web")
+//    dependsOn assemble, compileTestJava
+//    doLast {
+//        javaexec {
+//            main = "io.cucumber.core.cli.Main"
+//            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+//            args = [
+//                    '--plugin', 'html:reports/web/index.html',
+//                    '--plugin', 'json:reports/web/index.json',
+//                    '--plugin', 'pretty',
+//                    '--glue', 'com.ryan.webUITest',
+//                    '--tags', "${tags}",
+//                    'src/test/resources/web'
+//
+//
+//
+//            ]
+//        }
+//    }
+//
+//}
+//
+//task cucumber_api() {
+//    description("Running Cucumber Test api")
+//    dependsOn assemble, compileTestJava
+//    doLast {
+//        javaexec {
+//            main = "io.cucumber.core.cli.Main"
+//            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+//            args = [
+//                    '--plugin', 'html:reports/api/index.html',
+//                    '--plugin', 'json:reports/api/index.json',
+//                    '--plugin', 'pretty',
+//                    '--glue', 'com.prasetio.apiTest',
+//                    '--tags', "${tags}",
+//                    'src/test/resources/API'
+//
+//
+//
+//            ]
+//        }
+//    }
+//
+//}

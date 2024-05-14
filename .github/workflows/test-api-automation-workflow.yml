@@ -29,7 +29,7 @@ jobs:
       run: chmod +x gradlew
 
     - name: Execute Test
-      run: ./cucumber apiTest || true
+      run: ./gradlew apiTest
       
     - name: Archive Test Result
       uses: actions/upload-artifact@v4
@@ -38,9 +38,9 @@ jobs:
         name: Cucumber Report
         path: reports/api
         
-     name: Deploy report to github pages
-     if: always()
-     uses: peaceiris/actions-gh-pages@v4
-     with:
-     personal_token: ${{ secrets.GITHUB_TOKEN }}
-     publish_dir: reports/api
+#     name: Deploy report to github pages
+#     if: always()
+#     uses: peaceiris/actions-gh-pages@v4
+#     with:
+#     personal_token: ${{ secrets.GITHUB_TOKEN }}
+#     publish_dir: reports/api
