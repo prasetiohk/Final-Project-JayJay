@@ -10,7 +10,11 @@ public class baseTest {
     protected static WebDriver driver;
     protected void getDriver(){
         ChromeOptions option = new ChromeOptions();
-        option.addArguments("--remote-allow-origins=*","--headless");
+        option.addArguments("--no-sandbox");
+        option.addArguments("--disable-dev-shm-usage");
+        option.addArguments("--remote-allow-origins=*");
+        option.addArguments("--window-size=1920,1080");
+        option.addArguments("--headless");
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver(option);
 
